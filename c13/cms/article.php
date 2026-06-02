@@ -9,6 +9,7 @@ if (!$id) {                                               // If no valid id
 }
 
 $sql = "SELECT a.title, a.summary, a.content, a.created, a.category_id, a.member_id, 
+               a.member_id, a.published,
                c.name      AS category,
                CONCAT(m.forename, ' ', m.surname) AS author,
                i.file AS image_file,
@@ -17,6 +18,8 @@ $sql = "SELECT a.title, a.summary, a.content, a.created, a.category_id, a.member
           JOIN category    AS c  ON a.category_id = c.id
           JOIN member      AS m  ON a.member_id   = m.id
           LEFT JOIN image  AS i  ON a.image_id    = i.id
+        ORDER BY a.id DESC;";
+        $articles = pdo ($$pdo, $sql)->fetchAll();  
          WHERE a.id = :id  AND a.published = 1;";         // SQL statement
 
 $article = $article = pdo($pdo, $sql, [$id])->fetch();    // Get article data
